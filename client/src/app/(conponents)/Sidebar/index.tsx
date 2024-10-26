@@ -24,8 +24,8 @@ import { usePathname } from "next/navigation";
 import { useState } from "react";
 
 const Sidebar = () => {
-  const [showProjects, setShowProjects] = useState(true);
-  const [showPriority, setShowPriority] = useState(true);
+  const [showProjects, setShowProjects] = useState(false);
+  const [showPriority, setShowPriority] = useState(false);
 
   const dispatch = useAppDispatch();
   const isSidebarCollapsed = useAppSelector(
@@ -121,7 +121,7 @@ const Sidebar = () => {
             <SidebarLink
               icon={ShieldAlert}
               label="High"
-              href="//piority/high"
+              href="/piority/high"
             />
             <SidebarLink
               icon={AlertTriangle}

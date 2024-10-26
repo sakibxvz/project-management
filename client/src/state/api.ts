@@ -6,3 +6,5 @@ export const api = createApi({
   tagTypes: [],
   endpoints: (build) => ({}),
 });
+
+export const {} = api
