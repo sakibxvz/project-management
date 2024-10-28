@@ -1,6 +1,7 @@
 "use client";
 import { useAppDispatch, useAppSelector } from "@/app/redux";
 import { setIsSidebarCollapsed } from "@/state";
+import { Project, useGetProjectsQuery } from "@/state/api";
 import {
   LucideIcon,
   LockIcon,
@@ -27,6 +28,7 @@ const Sidebar = () => {
   const [showProjects, setShowProjects] = useState(false);
   const [showPriority, setShowPriority] = useState(false);
 
+  const { data: projects } = useGetProjectsQuery();
   const dispatch = useAppDispatch();
   const isSidebarCollapsed = useAppSelector(
     (state) => state.global.isSidebarCollapsed,
@@ -89,15 +91,16 @@ const Sidebar = () => {
             <ChevronDown className="h-5 w-5" />
           )}
         </button>
-        {/* Project Links  */}
-        {showProjects && (
-          <>
-            <SidebarLink icon={Users} label="PROJECT" href="/teams" />
-            <SidebarLink icon={Users} label="PROJECT 2" href="/teams" />
-            <SidebarLink icon={Users} label="PROJECT 3" href="/teams" />
-            <SidebarLink icon={Users} label="PROJECT 4" href="/teams" />
-          </>
-        )}
+        {/* PROJECTS LIST */}
+        {showProjects &&
+          projects?.map((project: Project) => (
+            <SidebarLink
+              key={project.id}
+              icon={Briefcase}
+              label={project.name}
+              href={`/projects/${project.id}`}
+            />
+          ))}
 
         {/* Piorities Link  */}
         <button
@@ -118,11 +121,7 @@ const Sidebar = () => {
               label="Urgent"
               href="/piority/urgent"
             />
-            <SidebarLink
-              icon={ShieldAlert}
-              label="High"
-              href="/piority/high"
-            />
+            <SidebarLink icon={ShieldAlert} label="High" href="/piority/high" />
             <SidebarLink
               icon={AlertTriangle}
               label="Medium"
